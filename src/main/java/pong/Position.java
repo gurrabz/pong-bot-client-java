@@ -2,7 +2,7 @@ package pong;
 
 import java.util.Objects;
 
-public class Position implements Cloneable{
+public class Position implements Cloneable {
 	protected final double x, y;
 
 	public Position(double x, double y){
@@ -33,18 +33,14 @@ public class Position implements Cloneable{
 
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Position){
-			if (this.getX() == ((Position) o).getX() &&
-			    this.getY() == ((Position) o).getY())
-			{
-				return true;
-			}
-		}
-		return false;
+		if(this == o) return true;
+		if(!(o instanceof Position)) return false;
+		return this.getX() == ((Position) o).getX() &&
+				this.getY() == ((Position) o).getY();
 	}
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
+	protected Object clone() {
 		return new Position(this);
 	}
 
@@ -53,5 +49,8 @@ public class Position implements Cloneable{
 		return Objects.hash(x, y, "pong.Position");
 	}
 
-	// todo tostring
+	@Override
+	public String toString() {
+		return String.format("{x: %.2f, y: %.2f}", this.getX(), this.getY());
+	}
 }

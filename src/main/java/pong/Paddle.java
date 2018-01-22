@@ -43,7 +43,7 @@ public class Paddle {
 		return player;
 	}
 
-	public enum State{
+	public enum State {
 		MOVE_CLOCKWISE,
 		MOVE_COUNTERCLOCKWISE,
 		STOP
@@ -51,29 +51,25 @@ public class Paddle {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.getAngle(), this.player, this.getState(), "pong.Paddle");
+		return Objects.hash(this.getAngle(), this.getPlayer(), this.getState(), "pong.Paddle");
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Paddle){
-			if (this.player.equals(o) &&
-			    this.state == ((Paddle) o).state &&
-			    this.getAngle() == ((Paddle) o).getAngle())
-			{
-				return true;
-			}
-		}
-		return false;
+		if (this == o) return true;
+		if(!(o instanceof Paddle)) return false;
+		return this.getPlayer().equals(((Paddle) o).getPlayer()) &&
+			this.getState() == ((Paddle) o).getState() &&
+			this.getAngle() == ((Paddle) o).getAngle();
 	}
 
 	@Override
-	protected Object clone() throws CloneNotSupportedException {
+	protected Object clone() {
 		return new Paddle(this);
 	}
 
 	@Override
 	public String toString() {
-		return super.toString(); //todo
+		return String.format("{player: %s, state: %s, angle: %.2f}", this.getPlayer(), this.getState(), this.getAngle());
 	}
 }
