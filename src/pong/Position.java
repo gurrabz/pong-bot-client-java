@@ -1,3 +1,5 @@
+package pong;
+
 import java.util.Objects;
 
 public class Position implements Cloneable{
@@ -48,7 +50,7 @@ public class Position implements Cloneable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(x, y, "Position");
+		return Objects.hash(x, y, "pong.Position");
 	}
 
 	// todo tostring

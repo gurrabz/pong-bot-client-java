@@ -1,3 +1,5 @@
+package pong;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Objects;
@@ -13,18 +15,22 @@ public class Vector extends Position {
 	}
 
 	public double length() {
+		// todo
 		throw new NotImplementedException();
 	}
 
-	public Vector product(double d){
+	public Vector product(double d) {
+		// todo
 		throw new NotImplementedException();
 	}
 
-	public Vector dotProduct(Vector vector){
+	public Vector dotProduct(Vector vector) {
+		// todo
 		throw new NotImplementedException();
 	}
 
-	public Vector crossProduct(Vector vector){
+	public Vector crossProduct(Vector vector) {
+		// todo
 		throw new NotImplementedException();
 	}
 
@@ -47,7 +53,7 @@ public class Vector extends Position {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(x, y, "Vector");
+		return Objects.hash(x, y, "pong.Vector");
 	}
 
 	// todo tostring

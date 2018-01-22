@@ -1,3 +1,5 @@
+package pong;
+
 import java.util.Objects;
 
 public class Ball {
@@ -32,7 +34,7 @@ public class Ball {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.position, this.vector, "Ball");
+		return Objects.hash(this.position, this.vector, "pong.Ball");
 	}
 
 	@Override

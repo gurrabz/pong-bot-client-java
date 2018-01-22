@@ -1,3 +1,4 @@
+import pong.GameState;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Communicator {
@@ -30,7 +31,7 @@ public class Communicator {
 		}
 
 		private GameState parseGameState(String input) {
-
+			// todo
 			throw new NotImplementedException();
 		}
 	}
@@ -39,7 +40,7 @@ public class Communicator {
 
 		@Override
 		public void run() {
-			// todo send 
+			// todo send
 			store.getDesiredPaddleState();
 		}
 	}

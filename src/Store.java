@@ -1,3 +1,6 @@
+import pong.GameState;
+import pong.Paddle;
+
 public class Store {
 	private GameState gameState = null;
 	private Paddle.State desiredPaddleState = null;

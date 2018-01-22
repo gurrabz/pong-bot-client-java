@@ -1,3 +1,5 @@
+package pong;
+
 import java.util.Objects;
 
 public class Paddle {
@@ -49,7 +51,7 @@ public class Paddle {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.getAngle(), this.player, this.getState(), "Paddle");
+		return Objects.hash(this.getAngle(), this.player, this.getState(), "pong.Paddle");
 	}
 
 	@Override
