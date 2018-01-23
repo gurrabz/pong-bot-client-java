@@ -19,15 +19,13 @@ public class Communicator extends Thread {
 	private final String NAME;
 	private int clientId;
 
-	public Communicator(Store store, int port, InetAddress inetAddress, String name)
-			throws IOException {
+	public Communicator(Store store, int port, InetAddress inetAddress, String name) throws IOException {
 		this.store = store;
 		this.socket = new Socket(inetAddress, port);
 		this.NAME = name;
 		setup(); // Should (theoretically) handle initial communication with server
 		this.collectorThread = new Thread(new Collector(socket.getInputStream()));
-		this.pusherThread = new Thread(new Pusher(socket.getOutputStream(),
-				this.clientId));
+		this.pusherThread = new Thread(new Pusher(socket.getOutputStream(), this.clientId));
 	}
 
 	public void start(){
@@ -76,9 +74,7 @@ public class Communicator extends Thread {
 						input = read();
 						// TODO: Should we check validity of input???
 						newGameState = gson.fromJson(input, GameState.class);
-						synchronized (store) {
-							store.setGameState(newGameState);
-						}
+						store.setGameState(newGameState);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -110,9 +106,7 @@ public class Communicator extends Thread {
 			// todo send
 			String data;
 			while(true) {
-				synchronized (store) {
-					data = gson.toJson(store.getDesiredPaddleState());
-				}
+				data = gson.toJson(store.getDesiredPaddleState());
 				send(data);
 			}
 			

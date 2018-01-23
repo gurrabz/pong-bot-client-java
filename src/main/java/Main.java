@@ -6,7 +6,7 @@ public class Main {
 
     private final static String    HOST    = "10.0.0.170";
     private final static int       PORT    = 4242;
-	public  final static String    NAME    = "EpicPlayer1337";
+	private final static String    NAME    = "EpicPlayer1337";
 	private final static Player    PLAYER  = null;
 
     public static void main(String[] args) {
