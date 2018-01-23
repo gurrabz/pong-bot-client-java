@@ -28,7 +28,7 @@ public class Main {
         communicator.start();
 
         while (true) {
-        	PLAYER.play(store.getGameState());
+        	store.setDesiredPaddleState(PLAYER.play(store.getGameState()));
         }
 
     }
