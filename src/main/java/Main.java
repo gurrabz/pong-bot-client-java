@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.System;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -7,7 +8,7 @@ public class Main {
     private final static String    HOST    = "10.0.0.170";
     private final static int       PORT    = 4242;
 	private final static String    NAME    = "EpicPlayer1337";
-	private final static Player    PLAYER  = null;
+	private final static Player    PLAYER  = new Bot();
 
     public static void main(String[] args) {
 
@@ -23,7 +24,7 @@ public class Main {
             System.err.println("Couldn't create Socket...");
             e.printStackTrace();
             System.exit(1);
-        } 
+        }
 
         communicator.start();
 

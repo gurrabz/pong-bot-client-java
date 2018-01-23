@@ -1,4 +1,4 @@
-package Communication;
+package communication;
 
 /**
  * Created on 1/22/18.

@@ -1,4 +1,4 @@
-package Communication;
+package communication;
 
 /**
  * Created on 1/22/18.
@@ -11,6 +11,10 @@ public class ClientId {
 	
 	public ClientId() {
 	
+	}
+
+	public ClientId(int id) {
+		this.id = id;
 	}
 	
 }

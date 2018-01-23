@@ -3,9 +3,14 @@ import java.net.Socket;
 
 import java.net.InetAddress;
 
-import Communication.ClientId;
-import Communication.ClientName;
+import java.lang.System;
+
+import communication.ClientId;
+import communication.ClientName;
+import communication.SendablePaddleState;
+
 import com.google.gson.Gson;
+
 import pong.GameState;
 
 public class Communicator extends Thread {
@@ -23,7 +28,7 @@ public class Communicator extends Thread {
 		this.store = store;
 		this.socket = new Socket(inetAddress, port);
 		this.NAME = name;
-		setup(); // Should (theoretically) handle initial communication with server
+		setup();
 		this.collectorThread = new Thread(new Collector(socket.getInputStream()));
 		this.pusherThread = new Thread(new Pusher(socket.getOutputStream(), this.clientId));
 	}
@@ -35,22 +40,19 @@ public class Communicator extends Thread {
 	
 	private void setup() {
 		try {
-			BufferedReader bis = new BufferedReader(new InputStreamReader(socket
-					.getInputStream()));
+			BufferedReader bis = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-			while(true) {
-				if(bis.ready()){
-					// Receive client id
-					StringBuilder sb = new StringBuilder();
-					bis.lines().forEach(sb::append);
-					ClientId clientId = gson.fromJson(sb.toString(), ClientId.class);
-					this.clientId = clientId.id;
-					
-					// Respond with client name
-					dos.writeChars(gson.toJson(new ClientName(NAME)));
-				}
-				
-			}
+
+			// Receive client id
+			StringBuilder sb = new StringBuilder();
+			sb.append(bis.readLine());
+			System.out.println("Received: " + sb.toString());
+			ClientId clientId = gson.fromJson(sb.toString(), ClientId.class);
+			this.clientId = clientId.id;
+			
+			// Respond with client name
+			dos.writeBytes(gson.toJson(new ClientName(NAME)) + "\n");
+			System.out.println("Sent: " + gson.toJson(new ClientName(NAME)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -68,11 +70,10 @@ public class Communicator extends Thread {
 		public void run() {
 			GameState newGameState;
 			while (true) {
-				String input = null;
+				String input;
 				try {
 					if(INPUT_STREAM.ready()) {
 						input = read();
-						// TODO: Should we check validity of input???
 						newGameState = gson.fromJson(input, GameState.class);
 						store.setGameState(newGameState);
 					}
@@ -82,7 +83,12 @@ public class Communicator extends Thread {
 			}
 
 		}
-		
+
+		/**
+		 * Reads data from the server.
+		 * 
+		 * @return a String of read data.
+		 */
 		private String read() {
 			StringBuilder sb = new StringBuilder();
 			INPUT_STREAM.lines().forEach(sb::append);
@@ -103,23 +109,29 @@ public class Communicator extends Thread {
 
 		@Override
 		public void run() {
-			// todo send
 			String data;
 			while(true) {
-				data = gson.toJson(store.getDesiredPaddleState());
-				send(data);
+				data = gson.toJson(new SendablePaddleState(store.getDesiredPaddleState(), new ClientId(ID)));
+				send(data + "\n");
+				try{
+					Thread.sleep(20);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
 			}
 			
 		}
 		
 		/**
 		 * Sends data to the server.
+		 * 
 		 * @param data
 		 * @return true if the data was sent correctly, else false.
 		 */
 		public boolean send(String data) {
 			try {
-				OUTPUT_STREAM.writeChars(data);
+				OUTPUT_STREAM.writeBytes(data);
 				return true;
 			} catch (IOException e) {
 				e.printStackTrace();
