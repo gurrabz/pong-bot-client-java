@@ -83,6 +83,29 @@ public class Communicator extends Thread {
 		}
 
 		/**
+		 * Parses the input received from the server.
+		 *
+		 * @param input the input received from the server.
+		 */
+		private void handleInput(final String input) {
+			JsonObject eventObject = ServerEventParser.parse(input);
+			ServerEventType event = ServerEventParser.getServerEventType(eventObject);
+			switch (event) {
+				case START_GAME:
+					handleStartGameEvent(eventObject);
+					break;
+				case END_GAME:
+					handleEndGameEvent(eventObject);
+					break;
+				case GAME_STATE:
+					handleGameStateEvent(eventObject);
+					break;
+				default:
+					break;
+			}
+		}
+
+		/**
 		 * Reads data from the server.
 		 * 
 		 * @return a String of read data.
