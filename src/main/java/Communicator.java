@@ -121,6 +121,16 @@ public class Communicator extends Thread {
 			}
 		}
 
+		private void handleStartGameEvent(JsonObject eventObject) {
+			if (!Main.IN_GAME) {
+				if (eventObject.getAsJsonArray(ServerEventParser.AFFECTED_PLAYERS_MEMBER_NAME)
+						.contains(new JsonPrimitive(clientId))) {
+					Main.IN_GAME = true;
+					System.out.println("[INFO]: Game started");
+				}
+			}
+		}
+
 		/**
 		 * Reads data from the server.
 		 * 
