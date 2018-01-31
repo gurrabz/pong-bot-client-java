@@ -114,6 +114,13 @@ public class Communicator extends Thread {
 			store.setGameState(gameState);
 		}
 
+		private void handleEndGameEvent(JsonObject eventObject) {
+			if (Main.IN_GAME) {
+				Main.IN_GAME = false;
+				System.out.println("[INFO]: Game Ended");
+			}
+		}
+
 		/**
 		 * Reads data from the server.
 		 * 
