@@ -46,19 +46,22 @@ public class Communicator extends Thread {
 	 */
 	private void setup() {
 		try {
+			System.out.println("[INFO]: Setup started!");
 			BufferedReader bis = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 
 			// Receive client id
 			StringBuilder sb = new StringBuilder();
 			sb.append(bis.readLine());
-			System.out.println("Received: " + sb.toString());
+			System.out.println("[IN]: " + sb.toString());
 			ClientId clientId = gson.fromJson(sb.toString(), ClientId.class);
 			this.clientId = clientId.id;
 
 			// Respond with client name
 			dos.writeBytes(gson.toJson(new ClientName(NAME)) + "\n");
-			System.out.println("Sent: " + gson.toJson(new ClientName(NAME)));
+			System.out.println("[OUT]: " + gson.toJson(new ClientName(NAME)));
+
+			System.out.println("[INFO]: Setup done!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -208,6 +211,7 @@ public class Communicator extends Thread {
 		private boolean send(String data) {
 			try {
 				OUTPUT_STREAM.writeBytes(data);
+				System.out.println(String.format("[OUT]: %s", data)); // Debug
 				return true;
 			} catch (IOException e) {
 				e.printStackTrace();
