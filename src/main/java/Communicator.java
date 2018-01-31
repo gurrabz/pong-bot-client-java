@@ -36,11 +36,11 @@ public class Communicator extends Thread {
 		this.pusherThread = new Thread(new Pusher(socket.getOutputStream(), this.clientId));
 	}
 
-	public void start(){
+	public void start() {
 		collectorThread.start();
 		pusherThread.start();
 	}
-	
+
 	/**
 	 * Performs the initial setup with the server, receiving an ID and sending a Display Name in return.
 	 */
@@ -55,7 +55,7 @@ public class Communicator extends Thread {
 			System.out.println("Received: " + sb.toString());
 			ClientId clientId = gson.fromJson(sb.toString(), ClientId.class);
 			this.clientId = clientId.id;
-			
+
 			// Respond with client name
 			dos.writeBytes(gson.toJson(new ClientName(NAME)) + "\n");
 			System.out.println("Sent: " + gson.toJson(new ClientName(NAME)));
@@ -63,7 +63,7 @@ public class Communicator extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * The Collector class is responsible for receiving and parsing data from server.
 	 */
@@ -200,10 +200,10 @@ public class Communicator extends Thread {
 				}
 			}
 		}
-		
+
 		/**
 		 * Sends data to the server.
-		 * 
+		 *
 		 * @param data
 		 * @return true if the data was sent correctly, else false.
 		 */
