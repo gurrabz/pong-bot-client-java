@@ -10,8 +10,14 @@ import communication.*;
 
 import pong.GameState;
 
+/**
+ * The Communicator thread is responsible for all the communication with the server.
+ */
 public class Communicator extends Thread {
-	
+
+	/**
+	 * Converter to and from json.
+	 */
 	private final Gson gson = new Gson();
 
 	private final Store store;
@@ -35,6 +41,9 @@ public class Communicator extends Thread {
 		pusherThread.start();
 	}
 	
+	/**
+	 * Performs the initial setup with the server, receiving an ID and sending a Display Name in return.
+	 */
 	private void setup() {
 		try {
 			BufferedReader bis = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -55,8 +64,14 @@ public class Communicator extends Thread {
 		}
 	}
 	
+	/**
+	 * The Collector class is responsible for receiving and parsing data from server.
+	 */
 	private class Collector implements Runnable {
 
+		/**
+		 * Input stream from the server.
+		 */
 		private final BufferedReader INPUT_STREAM;
 
 		private Collector(InputStream stream) {
@@ -153,11 +168,15 @@ public class Communicator extends Thread {
 			return input;
 		}
 	}
-		
-	}
 
+	/**
+	 * The Pusher class is responsible for sending data to the server.
+	 */
 	private class Pusher implements Runnable {
 
+		/**
+		 * The output stream to the server.
+		 */
 		private final DataOutputStream OUTPUT_STREAM;
 		private final int ID;
 
