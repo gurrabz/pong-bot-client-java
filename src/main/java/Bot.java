@@ -10,7 +10,7 @@ public class Bot implements Player {
 	 * @return a Paddle.State
 	 */
     @Override
-    public Paddle.State play(GameState state) {
+    public Paddle.State play(GameState gameState) {
         // Enter your bot logic here...
 
         // Example...
