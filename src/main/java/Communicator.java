@@ -132,6 +132,20 @@ public class Communicator extends Thread {
 		}
 
 		/**
+		 * Tries to parse jsonObject into a {@link GameState} if possible.
+		 *
+		 * @param jsonObject the Json formatted String.
+		 * @return GameState represented by jsonObject if possible, else null.
+		 */
+		private GameState tryParseGameState(JsonObject jsonObject) {
+			try {
+				return gson.fromJson(jsonObject, GameState.class);
+			} catch (JsonSyntaxException e) {
+				return null;
+			}
+		}
+
+		/**
 		 * Reads data from the server.
 		 * 
 		 * @return a String of read data.
