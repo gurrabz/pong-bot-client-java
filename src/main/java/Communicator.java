@@ -18,9 +18,9 @@ public class Communicator extends Thread {
 	private final Gson gson = new Gson();
 
 	private final Store store;
-	private Thread collectorThread, pusherThread;
-	private Socket socket;
-	
+	private final Thread collectorThread, pusherThread;
+	private final Socket socket;
+
 	private final String NAME;
 	private int clientId;
 
