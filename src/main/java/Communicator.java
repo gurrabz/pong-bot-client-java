@@ -129,7 +129,7 @@ public class Communicator extends Thread {
 		 * @param data
 		 * @return true if the data was sent correctly, else false.
 		 */
-		public boolean send(String data) {
+		private boolean send(String data) {
 			try {
 				OUTPUT_STREAM.writeBytes(data);
 				return true;
