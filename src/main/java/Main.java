@@ -10,6 +10,8 @@ public class Main {
 	private final static String     NAME    = "EpicPlayer1337";
 	private final static Player     PLAYER  = new Bot();
 
+	public static Boolean   IN_GAME = false; // TODO: this variable doesn't synchronize across threads...
+
 	public static void main(String[] args) {
 
 		Store store = new Store();
@@ -29,7 +31,9 @@ public class Main {
 		communicator.start();
 
 		while (true) {
+			if(IN_GAME) {
 				store.setDesiredPaddleState(PLAYER.play(store.getGameState()));
+			}
 		}
 
 	}
