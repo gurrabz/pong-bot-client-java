@@ -172,17 +172,17 @@ public class Communicator extends Thread {
 		@Override
 		public void run() {
 			String data;
-			while(true) {
-				data = gson.toJson(new SendablePaddleState(store.getDesiredPaddleState(), new ClientId(ID)));
-				send(data + "\n");
-				try{
-					Thread.sleep(20);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+			while (true) {
+				if (Main.IN_GAME) {
+					data = gson.toJson(new SendablePaddleState(store.getDesiredPaddleState(), new ClientId(clientId)));
+					send(data + "\n");
+					try {
+						Thread.sleep(20);
+					} catch (InterruptedException e) {
+						break;
+					}
 				}
-				
 			}
-			
 		}
 		
 		/**
