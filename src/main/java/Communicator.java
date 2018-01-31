@@ -105,6 +105,15 @@ public class Communicator extends Thread {
 			}
 		}
 
+		private void handleGameStateEvent(JsonObject eventObject) {
+			GameState gameState = tryParseGameState(eventObject);
+			if (gameState == null) {
+				System.out.println("[WARN]: Couldn't parse eventObject into GameState!");
+				return;
+			}
+			store.setGameState(gameState);
+		}
+
 		/**
 		 * Reads data from the server.
 		 * 
