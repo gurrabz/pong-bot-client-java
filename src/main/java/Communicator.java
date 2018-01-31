@@ -5,11 +5,8 @@ import java.net.InetAddress;
 
 import java.lang.System;
 
-import communication.ClientId;
-import communication.ClientName;
-import communication.SendablePaddleState;
-
-import com.google.gson.Gson;
+import com.google.gson.*;
+import communication.*;
 
 import pong.GameState;
 
