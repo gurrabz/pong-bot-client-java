@@ -33,7 +33,7 @@ public class Communicator extends Thread {
 		this.NAME = name;
 		setup();
 		this.collectorThread = new Thread(new Collector(socket.getInputStream()));
-		this.pusherThread = new Thread(new Pusher(socket.getOutputStream(), this.clientId));
+		this.pusherThread = new Thread(new Pusher(socket.getOutputStream()));
 	}
 
 	public void start() {
@@ -178,11 +178,9 @@ public class Communicator extends Thread {
 		 * The output stream to the server.
 		 */
 		private final DataOutputStream OUTPUT_STREAM;
-		private final int ID;
 
 		private Pusher(OutputStream stream) {
 			this.OUTPUT_STREAM = new DataOutputStream(stream);
-			this.ID = id;
 		}
 
 		@Override
