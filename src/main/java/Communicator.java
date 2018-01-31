@@ -62,7 +62,7 @@ public class Communicator extends Thread {
 
 		private final BufferedReader INPUT_STREAM;
 
-		public Collector(InputStream stream) {
+		private Collector(InputStream stream) {
 			this.INPUT_STREAM = new BufferedReader(new InputStreamReader(stream));
 		}
 
@@ -102,7 +102,7 @@ public class Communicator extends Thread {
 		private final DataOutputStream OUTPUT_STREAM;
 		private final int ID;
 
-		public Pusher(OutputStream stream, int id) {
+		private Pusher(OutputStream stream) {
 			this.OUTPUT_STREAM = new DataOutputStream(stream);
 			this.ID = id;
 		}
