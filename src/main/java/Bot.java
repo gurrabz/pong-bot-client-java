@@ -17,8 +17,4 @@ public class Bot implements Player {
         return Paddle.State.MOVE_CLOCKWISE;
     }
 
-    public Bot() {
-
-    }
-
 }
