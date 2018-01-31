@@ -68,14 +68,12 @@ public class Communicator extends Thread {
 
 		@Override
 		public void run() {
-			GameState newGameState;
-			while (true) {
-				String input;
+			String input;
+			while (true) { // Continuously reads the input from the serer
 				try {
-					if(INPUT_STREAM.ready()) {
+					if (INPUT_STREAM.ready()) { // can throw an I/O-Exception
 						input = read();
-						newGameState = gson.fromJson(input, GameState.class);
-						store.setGameState(newGameState);
+						handleInput(input);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
