@@ -47,18 +47,21 @@ public class Communicator extends Thread {
 	private void setup() {
 		try {
 			System.out.println("[INFO]: Setup started!");
+
+			// Can throw an I/O-Exception
 			BufferedReader bis = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			// Can throw an I/O-Exception
 			DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 
 			// Receive client id
 			StringBuilder sb = new StringBuilder();
-			sb.append(bis.readLine());
+			sb.append(bis.readLine()); // Can throw an I/O-Exception
 			System.out.println("[IN]: " + sb.toString());
 			ClientId clientId = gson.fromJson(sb.toString(), ClientId.class);
 			this.clientId = clientId.id;
 
 			// Respond with client name
-			dos.writeBytes(gson.toJson(new ClientName(NAME)) + "\n");
+			dos.writeBytes(gson.toJson(new ClientName(NAME)) + "\n"); // Can throw I/O-Exception
 			System.out.println("[OUT]: " + gson.toJson(new ClientName(NAME)));
 
 			System.out.println("[INFO]: Setup done!");
