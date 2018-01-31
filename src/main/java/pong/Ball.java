@@ -4,15 +4,15 @@ import java.util.Objects;
 
 public class Ball {
 	private final Position position;
-	private final Vector vector;
+	private final Vector velocity;
 
 	public Ball(Position p, Vector v) {
-		this.vector = v;
+		this.velocity = v;
 		this.position = p;
 	}
 
 	public Ball(Ball b){
-		this.vector = b.getVector();
+		this.velocity = b.getVelocity();
 		this.position = b.getPosition();
 	}
 
@@ -21,27 +21,27 @@ public class Ball {
 	}
 
 	public Ball withPosition(Position p){
-		return new Ball(p, this.vector);
+		return new Ball(p, this.velocity);
 	}
 
 	public Position getPosition() {
 		return position;
 	}
 
-	public Vector getVector() {
-		return vector;
+	public Vector getVelocity() {
+		return velocity;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.position, this.vector, "pong.Ball");
+		return Objects.hash(this.position, this.velocity, "pong.Ball");
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Ball) {
 			if (this.getPosition().equals(((Ball) o).getPosition()) &&
-			    this.getVector().equals(((Ball) o).getVector()))
+			    this.getVelocity().equals(((Ball) o).getVelocity()))
 			{
 				return true;
 			}
