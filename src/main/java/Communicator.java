@@ -147,14 +147,15 @@ public class Communicator extends Thread {
 
 		/**
 		 * Reads data from the server.
-		 * 
+		 *
 		 * @return a String of read data.
 		 */
-		private String read() {
-			StringBuilder sb = new StringBuilder();
-			INPUT_STREAM.lines().forEach(sb::append);
-			return sb.toString();
+		private String read() throws IOException {
+			String input = INPUT_STREAM.readLine();
+			System.out.println(String.format("[IN]: %s", input)); // Debug
+			return input;
 		}
+	}
 		
 	}
 
