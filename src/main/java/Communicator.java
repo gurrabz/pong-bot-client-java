@@ -26,6 +26,7 @@ public class Communicator extends Thread {
 
 	private final String NAME;
 	private int clientId;
+	private boolean inGame = false;
 
 	public Communicator(Store store, int port, InetAddress inetAddress, String name) throws IOException {
 		this.store = store;
@@ -133,17 +134,17 @@ public class Communicator extends Thread {
 		}
 
 		private void handleEndGameEvent(JsonObject eventObject) {
-			if (Main.IN_GAME) {
-				Main.IN_GAME = false;
+			if (inGame) {
+				inGame = false;
 				System.out.println("[INFO]: Game Ended");
 			}
 		}
 
 		private void handleStartGameEvent(JsonObject eventObject) {
-			if (!Main.IN_GAME) {
+			if (!inGame) {
 				if (eventObject.getAsJsonArray(ServerEventParser.AFFECTED_PLAYERS_MEMBER_NAME)
 						.contains(new JsonPrimitive(clientId))) {
-					Main.IN_GAME = true;
+					inGame = true;
 					System.out.println("[INFO]: Game started");
 				}
 			}
@@ -193,8 +194,8 @@ public class Communicator extends Thread {
 		public void run() {
 			String data;
 			while (true) {
-				if (Main.IN_GAME) {
-					data = gson.toJson(new SendablePaddleState(store.getDesiredPaddleState(), new ClientId(clientId)));
+				if (inGame) {
+					data = store.getDesiredPaddleState().toString();
 					send(data + "\n");
 					try {
 						Thread.sleep(20);
