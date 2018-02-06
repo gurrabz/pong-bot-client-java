@@ -26,7 +26,7 @@ public class Communicator extends Thread {
 
 	private final String NAME;
 	private int clientId;
-	private boolean inGame = false;
+	private volatile boolean inGame = false;
 
 	public Communicator(Store store, int port, InetAddress inetAddress, String name) throws IOException {
 		this.store = store;
